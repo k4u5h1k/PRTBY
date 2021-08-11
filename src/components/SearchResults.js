@@ -12,18 +12,19 @@ const styles = theme => ({
         paddingLeft : '1vw',
         marginRight : '-32px',
         '& span, & svg': {
-            fontSize: 'xx-large',
+            fontSize: window.innerWidth > 500 ? 'xx-large':'large',
             paddingTop : '1.5vh',
         },
         '& p': {
-            fontSize: 'large',
+            fontSize: window.innerWidth > 500 ? 'large':'small',
             paddingBottom : '1.5vh'
         },
         '&:hover': {
             backgroundColor: '#B4A186E0',
             cursor: 'pointer'
         },
-        borderRadius : '10px'
+        borderRadius : '10px',
+        overflowWrap: 'break-word'
     },
     colorPrimary: {
         color: 'white',
@@ -115,7 +116,7 @@ var SearchResults = (props) => {
                     <SearchBox value={query} margin='normal'/>
                 </Grid>
             </Grid>
-            <Box component='div' p={7} pt={0}>
+            <Box component='div' px={2} pt={0}>
                 <List>
                     { 
                         results.length > 0 ? 
@@ -126,6 +127,15 @@ var SearchResults = (props) => {
                                     secondary=''
                                     className={classes.resultItem}
                                 />
+                                <ListItemSecondaryAction>
+                                    <IconButton 
+                                        end="edge" 
+                                        style={{marginLeft:'-2vw'}}
+                                        onClick={()=>{alert('You are proof that users are stupid.')}}
+                                    >
+                                        <GetAppIcon fontSize='large' />
+                                    </IconButton>
+                                </ListItemSecondaryAction>
                                 </ListItem>
                                 :
                                 results.map((el)=>{
@@ -139,7 +149,7 @@ var SearchResults = (props) => {
                                             <ListItemSecondaryAction>
                                                 <IconButton 
                                                     end="edge" 
-                                                    style={{marginLeft:'-50%'}}
+                                                    style={{marginLeft:'-2vw'}}
                                                     onClick={()=>{download(el)}}
                                                 >
                                                     <GetAppIcon fontSize='large' />

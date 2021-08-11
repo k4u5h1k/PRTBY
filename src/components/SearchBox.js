@@ -23,7 +23,7 @@ const styles = theme => ({
         borderColor: 'white !important'
     },
     size: {
-        fontSize: 'xx-large',
+        fontSize: window.innerWidth > 500 ? 'xx-large':'x-large',
         marginLeft: '1%'
     }
 })
