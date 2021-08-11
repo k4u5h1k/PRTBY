@@ -64,7 +64,7 @@ var SearchResults = (props) => {
         var name = el['username']
         var size = format_size(Number(el['size']))
         var date = new Date(el['added']*1000).toLocaleString()
-        return `${ name } | ${ size } | seeders: ${ el['seeders'] } leechers: ${ el['leechers'] } | ${ date }`
+        return `${name} | ${size} | seeders: ${el['seeders']} leechers: ${el['leechers']} | ${date}`
     }
 
     var get_trackers = () => {
@@ -79,7 +79,7 @@ var SearchResults = (props) => {
     }
 
     var generateMagnet = (ih, name) =>{
-        window.open('magnet:?xt=urn:btih:' + ih + '&dn=' + encodeURIComponent(name) + get_trackers())
+        window.open(`magnet:?xt=urn:btih:${ih}&dn=${encodeURIComponent(name)}${get_trackers()}`)
     }
 
     var download = (el) => {
@@ -104,9 +104,6 @@ var SearchResults = (props) => {
                             color="primary" 
                             component="span" 
                             onClick={() => backToMenu()}
-                            style={{
-                                margin: 'auto',
-                            }}
                         >
                         <ArrowBackIcon fontSize='large' className={classes.arrowStyle}/>
                         </IconButton>
@@ -120,25 +117,30 @@ var SearchResults = (props) => {
                 <List>
                     { 
                         results.length > 0 ? 
-                            results[0]['name']==='No results returned'?
+                            results[0]['name'] === 'No results returned' ?
+                                <>
                                 <ListItem>
-                                <ListItemText
-                                    primary='No results returned'
-                                    secondary=''
-                                    className={classes.resultItem}
-                                />
-                                <ListItemSecondaryAction>
-                                    <IconButton 
-                                        end="edge" 
-                                        style={{marginLeft:'-5vw'}}
-                                        onClick={()=>{alert('You are proof that users are stupid XD. Jk enjoy the app!')}}
-                                    >
-                                        <GetAppIcon fontSize='large' />
-                                    </IconButton>
-                                </ListItemSecondaryAction>
+                                    <ListItemText
+                                        primary='No results returned'
+                                        secondary=''
+                                        className={classes.resultItem}
+                                    />
+                                    <ListItemSecondaryAction>
+                                        <IconButton 
+                                            end="edge" 
+                                            style={{marginLeft: '-5vw'}}
+                                            onClick={() => {
+                                                alert('You are proof that users are stupid XD. Jk enjoy the app!')
+                                            }}
+                                        >
+                                            <GetAppIcon fontSize='large' />
+                                        </IconButton>
+                                    </ListItemSecondaryAction>
                                 </ListItem>
+                                <Divider variant="middle" />
+                                </>
                                 :
-                                results.map((el)=>{
+                                results.map((el) => {
                                     return <>
                                         <ListItem>
                                             <ListItemText
@@ -149,14 +151,14 @@ var SearchResults = (props) => {
                                             <ListItemSecondaryAction>
                                                 <IconButton 
                                                     end="edge" 
-                                                    style={{marginLeft:'-5vw'}}
-                                                    onClick={()=>{download(el)}}
+                                                    style={{marginLeft: '-5vw'}}
+                                                    onClick={() => download(el)}
                                                 >
                                                     <GetAppIcon fontSize='large' />
                                                 </IconButton>
                                             </ListItemSecondaryAction>
                                         </ListItem>
-                                        <Divider variant="middle"/>
+                                        <Divider variant="middle" />
                                     </>
                                 })
                             :
