@@ -130,7 +130,7 @@ var SearchResults = (props) => {
                                 <ListItemSecondaryAction>
                                     <IconButton 
                                         end="edge" 
-                                        style={{marginLeft:'-2vw'}}
+                                        style={{marginLeft:'-5vw'}}
                                         onClick={()=>{alert('You are proof that users are stupid XD.')}}
                                     >
                                         <GetAppIcon fontSize='large' />
@@ -149,7 +149,7 @@ var SearchResults = (props) => {
                                             <ListItemSecondaryAction>
                                                 <IconButton 
                                                     end="edge" 
-                                                    style={{marginLeft:'-2vw'}}
+                                                    style={{marginLeft:'-5vw'}}
                                                     onClick={()=>{download(el)}}
                                                 >
                                                     <GetAppIcon fontSize='large' />
