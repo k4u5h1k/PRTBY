@@ -131,7 +131,7 @@ var SearchResults = (props) => {
                                     <IconButton 
                                         end="edge" 
                                         style={{marginLeft:'-2vw'}}
-                                        onClick={()=>{alert('You are proof that users are stupid.')}}
+                                        onClick={()=>{alert('You are proof that users are stupid XD.')}}
                                     >
                                         <GetAppIcon fontSize='large' />
                                     </IconButton>
