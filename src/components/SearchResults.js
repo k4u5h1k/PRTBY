@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
-import { Grid, Divider, List, CircularProgress, withStyles } from '@material-ui/core';
+import { Grid, Box, Divider, List, CircularProgress, withStyles } from '@material-ui/core';
 import { ListItem, ListItemText, IconButton, ListItemSecondaryAction } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SearchBox from './SearchBox';
@@ -9,14 +9,15 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 const styles = theme => ({
     resultItem: {
         background : '#B4A186',
-        paddingLeft : '1%',
+        paddingLeft : '1vw',
+        marginRight : '-32px',
         '& span, & svg': {
-            fontSize: '1.8rem',
-            paddingTop : '10px',
+            fontSize: 'x-large',
+            paddingTop : '1.5vh',
         },
         '& p': {
-            fontSize: '1.1rem',
-            paddingBottom : '10px'
+            fontSize: 'large',
+            paddingBottom : '1.5vh'
         },
         '&:hover': {
             backgroundColor: '#B4A186E0',
@@ -28,6 +29,10 @@ const styles = theme => ({
         color: 'white',
         marginLeft: '48%',
         marginTop: '2%'
+    },
+    arrowStyle: {
+        color:'white', 
+        marginTop: '20%'
     }
 })
 
@@ -37,6 +42,7 @@ var SearchResults = (props) => {
     const history = useHistory();
 
     useEffect(() => {
+        setResults([])
         fetch(`https://prtbyapi.azurewebsites.net/api/proxy?endpoint=q&q=${encodeURIComponent(query)}&cat=`)
             .then(res => res.json())
             .then((results) => {
@@ -92,61 +98,63 @@ var SearchResults = (props) => {
               alignItems="center"
               direction="row"
             >
-                <Grid item md={1}>
-                    <IconButton 
-                        color="primary" 
-                        component="span" 
-                        onClick={() => backToMenu()}
-                        style={{margin: 'auto'}}
-                    >
-                    <ArrowBackIcon fontSize='large' style={{color:'white', marginTop: '20%'}} />
-                    </IconButton>
-                </Grid>
-                <Grid item md={8}>
+                { window.innerWidth > 500 && 
+                    <Grid item md={1} sm={1} xs={1}>
+                        <IconButton 
+                            color="primary" 
+                            component="span" 
+                            onClick={() => backToMenu()}
+                            style={{
+                                margin: 'auto',
+                            }}
+                        >
+                        <ArrowBackIcon fontSize='large' className={classes.arrowStyle}/>
+                        </IconButton>
+                    </Grid>
+                }
+                <Grid item md={8} sm={8} xs={8}>
                     <SearchBox value={query} margin='normal'/>
                 </Grid>
-                <Grid item 
-                    md={10}
-                >
-                    <List>
-                        { 
-                            results.length > 0 ? 
-                                results[0]['name']==='No results returned'?
-                                    <ListItem>
-                                    <ListItemText
-                                        primary='No results returned'
-                                        secondary=''
-                                        className={classes.resultItem}
-                                    />
-                                    </ListItem>
-                                    :
-                                    results.map((el)=>{
-                                        return <>
-                                            <ListItem>
-                                                <ListItemText
-                                                    primary={el['name']}
-                                                    secondary={generateMeta(el)}
-                                                    className={classes.resultItem}
-                                                />
-                                                <ListItemSecondaryAction>
-                                                    <IconButton 
-                                                        end="edge" 
-                                                        style={{marginLeft:'-80%'}}
-                                                        onClick={()=>{download(el)}}
-                                                    >
-                                                        <GetAppIcon fontSize='large' />
-                                                    </IconButton>
-                                                </ListItemSecondaryAction>
-                                            </ListItem>
-                                            <Divider variant="middle"/>
-                                        </>
-                                    })
-                                :
-                                <CircularProgress className={classes.colorPrimary}/>
-                        }
-                    </List>
-                </Grid>
             </Grid>
+            <Box component='div' p={7} pt={0}>
+                <List>
+                    { 
+                        results.length > 0 ? 
+                            results[0]['name']==='No results returned'?
+                                <ListItem>
+                                <ListItemText
+                                    primary='No results returned'
+                                    secondary=''
+                                    className={classes.resultItem}
+                                />
+                                </ListItem>
+                                :
+                                results.map((el)=>{
+                                    return <>
+                                        <ListItem>
+                                            <ListItemText
+                                                primary={el['name']}
+                                                secondary={generateMeta(el)}
+                                                className={classes.resultItem}
+                                            />
+                                            <ListItemSecondaryAction>
+                                                <IconButton 
+                                                    end="edge" 
+                                                    style={{marginLeft:'-50%'}}
+                                                    onClick={()=>{download(el)}}
+                                                >
+                                                    <GetAppIcon fontSize='large' />
+                                                </IconButton>
+                                            </ListItemSecondaryAction>
+                                        </ListItem>
+                                        <Divider variant="middle"/>
+                                    </>
+                                })
+                            :
+                            <CircularProgress className={classes.colorPrimary}/>
+                    }
+                </List>
+            </Box>
         </>
 }
 
