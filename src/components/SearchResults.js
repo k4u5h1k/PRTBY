@@ -37,7 +37,7 @@ var SearchResults = (props) => {
     const history = useHistory();
 
     useEffect(() => {
-        fetch(`https://apibay.org/q.php?q=${encodeURIComponent(query)}&cat=`)
+        fetch(`https://prtbyapi.azurewebsites.net/api/proxy?endpoint=q&q=${encodeURIComponent(query)}&cat=`)
             .then(res => res.json())
             .then((results) => {
                 results.sort((a,b) => {return Number(b['seeders']) > Number(a['seeders'])})
@@ -73,7 +73,6 @@ var SearchResults = (props) => {
     }
 
     var generateMagnet = (ih, name) =>{
-        console.log('magnet:?xt=urn:btih:' + ih + '&dn=' + encodeURIComponent(name) + get_trackers())
         window.open('magnet:?xt=urn:btih:' + ih + '&dn=' + encodeURIComponent(name) + get_trackers())
     }
 
