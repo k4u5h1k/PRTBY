@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
-import {ReactComponent as Logo} from '../assets/img/logo.svg';
-import { Grid, Typography, Divider, List, CircularProgress, withStyles } from '@material-ui/core';
+import { Grid, Divider, List, CircularProgress, withStyles } from '@material-ui/core';
 import { ListItem, ListItemText, IconButton, ListItemSecondaryAction } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SearchBox from './SearchBox';
@@ -59,7 +58,7 @@ var SearchResults = (props) => {
         var name = el['username']
         var size = format_size(Number(el['size']))
         var date = new Date(el['added']*1000).toLocaleString()
-        return name + ' | ' + size + ' | ' + 'seeders: ' + el['seeders'] + ' | leechers: ' + el['leechers'] + ' | ' + date
+        return `${ name } | ${ size } | seeders: ${ el['seeders'] } leechers: ${ el['leechers'] } | ${ date }`
     }
 
     var get_trackers = () => {

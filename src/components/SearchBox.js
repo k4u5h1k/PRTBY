@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react';
-import { Grid, TextField } from '@material-ui/core';
+import { useState } from 'react';
+import { TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 
@@ -19,7 +19,6 @@ const styles = theme => ({
     },
     notchedOutline: {
         color : 'white',
-        borderRadius: '15px',
         borderRadius: '50px',
         borderColor: 'white !important'
     },

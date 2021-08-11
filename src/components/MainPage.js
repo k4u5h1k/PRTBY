@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import {ReactComponent as Logo} from '../assets/img/logo.svg';
+import { ReactComponent as Logo } from '../assets/img/logo.svg';
 import { Grid } from '@material-ui/core';
 import SearchBox from './SearchBox';
 
