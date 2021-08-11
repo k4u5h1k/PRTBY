@@ -40,7 +40,7 @@ var SearchBox = (props) => {
         if (evt.key === 'Enter'){
             evt.preventDefault()
             history.push({
-                pathname: "/PRTBY/searchResults",
+                pathname: "/searchResults",
                 state: {query: query}
             });
         }

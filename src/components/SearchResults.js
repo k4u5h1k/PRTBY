@@ -12,7 +12,7 @@ const styles = theme => ({
         paddingLeft : '1vw',
         marginRight : '-32px',
         '& span, & svg': {
-            fontSize: 'x-large',
+            fontSize: 'xx-large',
             paddingTop : '1.5vh',
         },
         '& p': {
@@ -27,7 +27,6 @@ const styles = theme => ({
     },
     colorPrimary: {
         color: 'white',
-        marginLeft: '48%',
         marginTop: '2%'
     },
     arrowStyle: {
@@ -151,7 +150,9 @@ var SearchResults = (props) => {
                                     </>
                                 })
                             :
-                            <CircularProgress className={classes.colorPrimary}/>
+                            <Grid container justify="center">
+                                <CircularProgress className={classes.colorPrimary} />
+                            </Grid>
                     }
                 </List>
             </Box>

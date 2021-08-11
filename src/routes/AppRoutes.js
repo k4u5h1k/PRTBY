@@ -6,8 +6,7 @@ const Routes = () => {
     return <BrowserRouter>
         <Switch>
             <Route exact path="/" component={MainPage}/>
-            <Route exact path="/PRTBY" component={MainPage}/>
-            <Route path="/PRTBY/searchResults" component={SearchResults}/>
+            <Route path="/searchResults" component={SearchResults}/>
         </Switch>
     </BrowserRouter>
 };
