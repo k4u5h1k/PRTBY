@@ -37,7 +37,7 @@ const styles = theme => ({
 })
 
 var SearchResults = (props) => {
-    const {query} = (props.location && props.location.state) || {}
+    const { query, dontPrintQuery } = (props.location && props.location.state) || {}
     var [results, setResults] = useState([])
     const history = useHistory();
 
@@ -110,7 +110,7 @@ var SearchResults = (props) => {
                     </Grid>
                 }
                 <Grid item md={8} sm={8} xs={8}>
-                    <SearchBox value={query} margin='normal'/>
+                    <SearchBox value={query} dontPrintQuery={dontPrintQuery} margin='normal'/>
                 </Grid>
             </Grid>
             <Box component='div' px={2} pt={0}>
@@ -162,7 +162,7 @@ var SearchResults = (props) => {
                                     </>
                                 })
                             :
-                            <Grid container justify="center">
+                            <Grid container justifyContent="center">
                                 <CircularProgress className={classes.colorPrimary} />
                             </Grid>
                     }

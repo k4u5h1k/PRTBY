@@ -14,7 +14,10 @@ var MainPage = (props) => {
                 <Link
                   to={{
                     pathname: "/searchResults",
-                    state: { query: 'a' }
+                    state: {
+                        query: 'a',
+                        dontPrintQuery: true
+                    }
                   }}
                 >
                     <Logo style={{

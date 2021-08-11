@@ -50,7 +50,7 @@ var SearchBox = (props) => {
     return <TextField
               id="outlined-full-width"
               placeholder="Search for torrents"
-              defaultValue={props.value}
+              defaultValue={props.dontPrintQuery ? null : props.value}
               fullWidth
               InputLabelProps={{
                 classes: {
