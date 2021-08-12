@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
-import { Grid, Box, Divider, List, CircularProgress, withStyles } from '@material-ui/core';
+import { Grid, Box, List, CircularProgress, withStyles } from '@material-ui/core';
 import { ListItem, ListItemText, IconButton, ListItemSecondaryAction } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SearchBox from './SearchBox';
@@ -137,7 +137,6 @@ var SearchResults = (props) => {
                                         </IconButton>
                                     </ListItemSecondaryAction>
                                 </ListItem>
-                                <Divider variant="middle" />
                                 </>
                                 :
                                 results.map((el) => {
@@ -158,7 +157,6 @@ var SearchResults = (props) => {
                                                 </IconButton>
                                             </ListItemSecondaryAction>
                                         </ListItem>
-                                        <Divider variant="middle" />
                                     </>
                                 })
                             :
