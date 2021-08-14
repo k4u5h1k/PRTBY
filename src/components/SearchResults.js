@@ -2,7 +2,9 @@ import {useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import { Grid, Box, List, CircularProgress, withStyles } from '@material-ui/core';
 import { ListItem, ListItemText, IconButton, ListItemSecondaryAction } from '@material-ui/core';
-import { GetAppIcon, DoneIcon, ArrowBackIcon } from '@material-ui/icons/GetApp';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import DoneIcon from '@material-ui/icons/Done';
 import SearchBox from './SearchBox';
 
 const styles = theme => ({
