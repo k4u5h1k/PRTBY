@@ -2,9 +2,8 @@ import {useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import { Grid, Box, List, CircularProgress, withStyles } from '@material-ui/core';
 import { ListItem, ListItemText, IconButton, ListItemSecondaryAction } from '@material-ui/core';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { GetAppIcon, DoneIcon, ArrowBackIcon } from '@material-ui/icons/GetApp';
 import SearchBox from './SearchBox';
-import GetAppIcon from '@material-ui/icons/GetApp';
 
 const styles = theme => ({
     resultItem: {
@@ -38,7 +37,10 @@ const styles = theme => ({
 
 var SearchResults = (props) => {
     const { query, dontPrintQuery } = (props.location && props.location.state) || {}
+
     var [results, setResults] = useState([])
+    var [finished_hashes, setFinished] = useState([])
+
     const history = useHistory();
 
     useEffect(() => {
@@ -78,8 +80,27 @@ var SearchResults = (props) => {
         return tr;
     }
 
+    var copyToClipboard = (magnet) => {
+        var textField = document.createElement('textarea')
+        textField.innerText = magnet
+        document.body.appendChild(textField)
+        textField.select()
+        document.execCommand('copy')
+        textField.remove()
+    }
+
     var generateMagnet = (ih, name) =>{
-        window.open(`magnet:?xt=urn:btih:${ih}&dn=${encodeURIComponent(name)}${get_trackers()}`)
+        var copyOrDownload = window.confirm("Click 'Cancel' to copy torrent magnet, 'OK' to open torrent in client.")
+        var magnet = `magnet:?xt=urn:btih:${ih}&dn=${encodeURIComponent(name)}${get_trackers()}`
+        if(copyOrDownload === 'OK') {
+            window.open(magnet)
+        }
+        else {
+            copyToClipboard(magnet)
+            alert('Copied to clipboard')
+        }
+
+        setFinished(finished_hashes.concat([ih]));
     }
 
     var download = (el) => {
@@ -153,7 +174,12 @@ var SearchResults = (props) => {
                                                     style={{marginLeft: '-5vw'}}
                                                     onClick={() => download(el)}
                                                 >
-                                                    <GetAppIcon fontSize='large' />
+                                                { 
+                                                    finished_hashes.indexOf(el['info_hash'])!=-1?
+                                                        <DoneIcon fontSize='large' />
+                                                        :
+                                                        <GetAppIcon fontSize='large' />
+                                                }
                                                 </IconButton>
                                             </ListItemSecondaryAction>
                                         </ListItem>
