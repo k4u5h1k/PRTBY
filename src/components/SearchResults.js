@@ -177,7 +177,7 @@ var SearchResults = (props) => {
                                                     onClick={() => download(el)}
                                                 >
                                                 { 
-                                                    finished_hashes.indexOf(el['info_hash'])!=-1?
+                                                    finished_hashes.indexOf(el['info_hash'])!==-1?
                                                         <DoneIcon fontSize='large' />
                                                         :
                                                         <GetAppIcon fontSize='large' />
