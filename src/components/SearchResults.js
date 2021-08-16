@@ -94,7 +94,7 @@ var SearchResults = (props) => {
     var generateMagnet = (ih, name) =>{
         var copyOrDownload = window.confirm("Click 'Cancel' to copy torrent magnet, 'OK' to open torrent in client.")
         var magnet = `magnet:?xt=urn:btih:${ih}&dn=${encodeURIComponent(name)}${get_trackers()}`
-        if(copyOrDownload === 'OK') {
+        if(copyOrDownload === true) {
             window.open(magnet)
         }
         else {
