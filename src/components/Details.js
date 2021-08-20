@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Grid, Typography, CircularProgress, IconButton, withStyles } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 import {format_size, copyOrDownload} from './utilities';
 import SearchBox from './SearchBox';
 
@@ -43,6 +44,9 @@ const styles = theme => ({
     }
 })
 
+let theme = createTheme();
+theme = responsiveFontSizes(theme);
+
 var Details = (props) => {
     const { id, query } = (props.location && props.location.state) || {}
     var [deets, setdeets] = useState({})
@@ -81,6 +85,7 @@ var Details = (props) => {
     }
 
     const { classes } = props;
+
     return <>
             <Grid 
               container 
@@ -102,8 +107,10 @@ var Details = (props) => {
                 <Grid item md={8} sm={8} xs={8}>
                     <SearchBox value={query} margin='normal'/>
                 </Grid>
-                { Object.keys(deets).length > 0 ?
+                { 
+                    Object.keys(deets).length > 0 ?
                         <>
+                        <ThemeProvider theme={theme}>
                         <Grid container item className={classes.detailsFormat} direction="row" md={10} sm={10} xs={10}>
                             <Grid item style={{marginBottom: '10px'}} md={12} sm={12} xs={12}>
                                 <Typography variant="h2">
@@ -112,8 +119,8 @@ var Details = (props) => {
                             </Grid>
                             <br/>
 
-                            <Grid item md={2} sm={2} xs={2}>
-                                <Typography variant="h4">
+                            <Grid item md={2} sm={2} xs={6}>
+                                <Typography theme={theme} variant="h4">
                                     Uploader
                                 </Typography>
                             </Grid>
@@ -122,13 +129,13 @@ var Details = (props) => {
                                     :
                                 </Typography>
                             </Grid>
-                            <Grid item md={9} sm={9} xs={9}>
-                                <Typography variant="h4">
+                            <Grid item md={9} sm={9} xs={5}>
+                                <Typography theme={theme} variant="h4">
                                     {deets['username']}
                                 </Typography>
                             </Grid>
 
-                            <Grid item md={2} sm={2} xs={2}>
+                            <Grid item md={2} sm={2} xs={6}>
                                 <Typography variant="h4">
                                     Files
                                 </Typography>
@@ -138,13 +145,13 @@ var Details = (props) => {
                                     :
                                 </Typography>
                             </Grid>
-                            <Grid item md={9} sm={9} xs={9}>
+                            <Grid item md={9} sm={9} xs={5}>
                                 <Typography variant="h4">
                                     {deets['num_files']}
                                 </Typography>
                             </Grid>
 
-                            <Grid item md={2} sm={2} xs={2}>
+                            <Grid item md={2} sm={2} xs={6}>
                                 <Typography variant="h4">
                                     Size
                                 </Typography>
@@ -154,13 +161,13 @@ var Details = (props) => {
                                     :
                                 </Typography>
                             </Grid>
-                            <Grid item md={9} sm={9} xs={9}>
+                            <Grid item md={9} sm={9} xs={5}>
                                 <Typography variant="h4">
                                     {format_size(deets['size'])}
                                 </Typography>
                             </Grid>
 
-                            <Grid item md={2} sm={2} xs={2}>
+                            <Grid item md={2} sm={2} xs={6}>
                                 <Typography variant="h4">
                                     Seeders
                                 </Typography>
@@ -170,13 +177,13 @@ var Details = (props) => {
                                     :
                                 </Typography>
                             </Grid>
-                            <Grid item md={9} sm={9} xs={9}>
+                            <Grid item md={9} sm={9} xs={5}>
                                 <Typography variant="h4">
                                     {deets['seeders']}
                                 </Typography>
                             </Grid>
 
-                            <Grid item md={2} sm={2} xs={2}>
+                            <Grid item md={2} sm={2} xs={6}>
                                 <Typography variant="h4">
                                     Leechers
                                 </Typography>
@@ -186,12 +193,13 @@ var Details = (props) => {
                                     :
                                 </Typography>
                             </Grid>
-                            <Grid item md={9} sm={9} xs={9}>
+                            <Grid item md={9} sm={9} xs={5}>
                                 <Typography variant="h4">
                                     {deets['leechers']}
                                 </Typography>
                             </Grid>
                         </Grid>
+                        </ThemeProvider>
                         <Grid container item className={classes.description} direction="row" md={10} sm={10} xs={10}>
                             <pre style={{fontSize: '1.2rem'}}>
                                 {replaceHtmlEntites(deets['descr'])}
