@@ -1,10 +1,11 @@
 import {useState, useEffect} from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom"
 import { Grid, Box, List, CircularProgress, withStyles } from '@material-ui/core';
 import { ListItem, ListItemText, IconButton, ListItemSecondaryAction } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import DoneIcon from '@material-ui/icons/Done';
+import {generateMeta, copyOrDownload} from './utilities';
 import SearchBox from './SearchBox';
 
 const styles = theme => ({
@@ -27,7 +28,7 @@ const styles = theme => ({
         borderRadius : '10px',
         overflowWrap: 'break-word'
     },
-    colorPrimary: {
+    progressStyle: {
         color: 'white',
         marginTop: '2%'
     },
@@ -43,7 +44,7 @@ var SearchResults = (props) => {
     var [results, setResults] = useState([])
     var [finished_hashes, setFinished] = useState([])
 
-    const history = useHistory();
+    const history = useHistory()
 
     useEffect(() => {
         setResults([])
@@ -55,62 +56,23 @@ var SearchResults = (props) => {
             })
     }, [query]);
 
-	var format_size = (num, suffix='B') => {
-        var sizes = ['','Ki','Mi','Gi','Ti','Pi','Ei','Zi']
-		for (const unit in sizes){
-			if (Math.abs(num) < 1024.0) return `${(num).toFixed(2)} ${sizes[unit]}${suffix}`
-			num /= 1024.0
-        }
-		return `${(num).toFixed(2)} Yi${suffix}`
-    }
-
-    var generateMeta = (el) => {
-        var name = el['username']
-        var size = format_size(Number(el['size']))
-        var date = new Date(el['added']*1000).toLocaleString()
-        return `${name} | ${size} | seeders: ${el['seeders']} leechers: ${el['leechers']} | ${date}`
-    }
-
-    var get_trackers = () => {
-        let tr = '&tr=' + encodeURIComponent('udp://tracker.coppersurfer.tk:6969/announce');
-        tr += '&tr=' + encodeURIComponent('udp://tracker.openbittorrent.com:6969/announce');
-        tr += '&tr=' + encodeURIComponent('udp://tracker.opentrackr.org:1337');
-        tr += '&tr=' + encodeURIComponent('udp://tracker.leechers-paradise.org:6969/announce');
-        tr += '&tr=' + encodeURIComponent('udp://tracker.dler.org:6969/announce');
-        tr += '&tr=' + encodeURIComponent('udp://opentracker.i2p.rocks:6969/announce');
-        tr += '&tr=' + encodeURIComponent('udp://47.ip-51-68-199.eu:6969/announce');
-        return tr;
-    }
-
-    var copyToClipboard = (magnet) => {
-        var textField = document.createElement('textarea')
-        textField.innerText = magnet
-        document.body.appendChild(textField)
-        textField.select()
-        document.execCommand('copy')
-        textField.remove()
-    }
-
-    var generateMagnet = (ih, name) =>{
-        var copyOrDownload = window.confirm("Click 'Cancel' to copy torrent magnet, 'OK' to open torrent in client.")
-        var magnet = `magnet:?xt=urn:btih:${ih}&dn=${encodeURIComponent(name)}${get_trackers()}`
-        if(copyOrDownload === true) {
-            window.open(magnet)
-        }
-        else {
-            copyToClipboard(magnet)
-            alert('Copied to clipboard')
-        }
-
-        setFinished(finished_hashes.concat([ih]));
-    }
-
-    var download = (el) => {
-        fetch(generateMagnet(el['info_hash'], el['name']))
+    var choiceWrapper = (el) => {
+        copyOrDownload(el);
+        setFinished(finished_hashes.concat([el['info_hash']]));
     }
 
     var backToMenu = () => {
         history.push("/");
+    }
+
+    var showDetails = (el) => {
+        history.push({
+            pathname: "/details",
+            state: { 
+                id: el["id"],
+                query: query
+            }
+        })
     }
 
     const { classes } = props;
@@ -169,12 +131,13 @@ var SearchResults = (props) => {
                                                 primary={el['name']}
                                                 secondary={generateMeta(el)}
                                                 className={classes.resultItem}
+                                                onClick={() => showDetails(el)}
                                             />
                                             <ListItemSecondaryAction>
                                                 <IconButton 
                                                     end="edge" 
                                                     style={{marginLeft: '-5vw'}}
-                                                    onClick={() => download(el)}
+                                                    onClick={() => choiceWrapper(el)}
                                                 >
                                                 { 
                                                     finished_hashes.indexOf(el['info_hash'])!==-1?
@@ -189,7 +152,7 @@ var SearchResults = (props) => {
                                 })
                             :
                             <Grid container justifyContent="center">
-                                <CircularProgress className={classes.colorPrimary} />
+                                <CircularProgress className={classes.progressStyle} />
                             </Grid>
                     }
                 </List>
