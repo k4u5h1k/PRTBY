@@ -54,7 +54,8 @@ var Details = (props) => {
             .then((results) => {
                 setdeets(results)
             })
-    })
+    // eslint-disable-next-line
+    }, [])
 
     var replaceHtmlEntites = (function() {
       var translate_re = /&(nbsp|amp|quot|lt|gt);/g;
