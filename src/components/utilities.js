@@ -11,7 +11,7 @@ var generateMeta = (el) => {
     var name = el['username']
     var size = format_size(Number(el['size']))
     var date = new Date(el['added']*1000).toLocaleString()
-    return `${name} | ${size} | seeders: ${el['seeders']} leechers: ${el['leechers']} | ${date}`
+    return `${name}┃${size}┃seeders: ${el['seeders']} & leechers: ${el['leechers']}┃${date}`
 }
 
 var get_trackers = () => {
