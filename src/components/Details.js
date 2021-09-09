@@ -105,7 +105,7 @@ var Details = (props) => {
                     </Grid>
                 }
                 <Grid item md={8} sm={8} xs={8}>
-                    <SearchBox value={query} margin='normal'/>
+                    <SearchBox value={query} dontPrintQuery={query === "a"?true:false} margin='normal'/>
                 </Grid>
                 { 
                     Object.keys(deets).length > 0 ?
