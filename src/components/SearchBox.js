@@ -41,7 +41,10 @@ var SearchBox = (props) => {
             evt.preventDefault()
             history.push({
                 pathname: "/searchResults",
-                state: {query: query}
+                state: {
+                    query: query,
+                    dontPrintQuery: props.dontPrintQuery
+                }
             });
         }
     }

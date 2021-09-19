@@ -1,8 +1,8 @@
 var format_size = (num, suffix='B') => {
     var sizes = ['','Ki','Mi','Gi','Ti','Pi','Ei','Zi']
     for (const unit in sizes){
-        if (Math.abs(num) < 1024.0) return `${(num).toFixed(2)} ${sizes[unit]}${suffix}`
-        num /= 1024.0
+        if (Math.abs(num) < 1000) return `${(num).toFixed(2)} ${sizes[unit]}${suffix}`
+        num /= 1000
     }
     return `${(num).toFixed(2)} Yi${suffix}`
 }

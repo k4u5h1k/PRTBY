@@ -48,7 +48,7 @@ let theme = createTheme();
 theme = responsiveFontSizes(theme);
 
 var Details = (props) => {
-    const { id, query } = (props.location && props.location.state) || {}
+    const { id, dontPrintQuery, query } = (props.location && props.location.state) || {}
     var [deets, setdeets] = useState({})
     const history = useHistory();
 
@@ -80,7 +80,10 @@ var Details = (props) => {
     var backToMenu = () => {
         history.push({
             pathname: "/searchResults",
-            state: {query: query}
+            state: {
+                query: query,
+                dontPrintQuery: dontPrintQuery,
+            }
         });
     }
 
@@ -105,7 +108,7 @@ var Details = (props) => {
                     </Grid>
                 }
                 <Grid item md={8} sm={8} xs={8}>
-                    <SearchBox value={query} dontPrintQuery={query === "a"?true:false} margin='normal'/>
+                    <SearchBox value={query} dontPrintQuery={query==='a'?true:false} margin='normal'/>
                 </Grid>
                 { 
                     Object.keys(deets).length > 0 ?

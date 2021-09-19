@@ -70,6 +70,7 @@ var SearchResults = (props) => {
             pathname: "/details",
             state: { 
                 id: el["id"],
+                dontPrintQuery: dontPrintQuery,
                 query: query
             }
         })
