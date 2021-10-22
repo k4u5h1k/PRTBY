@@ -8,7 +8,6 @@ var MainPage = (props) => {
         <Grid 
           container 
           justifyContent="center"
-          alignItems="center"
         >
             <Grid item xs={11} sm={9} lg={6} md={6}>
                 <Link
@@ -22,12 +21,13 @@ var MainPage = (props) => {
                 >
                     <Logo style={{
                         width: '100%',
-                        marginBottom: '-30%'
+                        marginBottom: '-32.5%',
+                        marginTop: '-10%',
                     }}/>
                 </Link>
             </Grid>
             <Grid item xs={10} sm={10} lg={8} md={8}>
-                <SearchBox />
+                <SearchBox/>
             </Grid>
         </Grid>
     </>
