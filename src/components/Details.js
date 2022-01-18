@@ -53,7 +53,7 @@ var Details = (props) => {
     const history = useHistory();
 
     useEffect( () => {
-        fetch(`https://prtbyapi.azurewebsites.net/api/proxy?endpoint=t&id=${id}`)
+        fetch(`https://isjoicclj0.execute-api.ap-south-1.amazonaws.com/default/prtby?endpoint=t&id=${id}`)
             .then(res => res.json())
             .then((results) => {
                 setdeets(results)

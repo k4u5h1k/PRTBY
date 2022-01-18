@@ -48,7 +48,7 @@ var SearchResults = (props) => {
 
     useEffect(() => {
         setResults([])
-        fetch(`https://prtbyapi.azurewebsites.net/api/proxy?endpoint=q&q=${encodeURIComponent(query)}&cat=`)
+        fetch(`https://isjoicclj0.execute-api.ap-south-1.amazonaws.com/default/prtby?endpoint=q&q=${encodeURIComponent(query)}&cat=`)
             .then(res => res.json())
             .then((results) => {
                 results.sort((a,b) => {return Number(b['seeders']) > Number(a['seeders'])})
