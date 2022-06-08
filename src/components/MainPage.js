@@ -9,7 +9,7 @@ var MainPage = (props) => {
           container 
           justifyContent="center"
         >
-            <Grid item xs={11} sm={9} lg={6} md={6}>
+            <Grid item xs={12} sm={9} lg={6} md={6}>
                 <Link
                   to={{
                     pathname: "/searchResults",
@@ -22,7 +22,7 @@ var MainPage = (props) => {
                     <Logo style={{
                         width: '100%',
                         marginBottom: '-32.5%',
-                        marginTop: '-10%',
+                        marginTop: '-10%'
                     }}/>
                 </Link>
             </Grid>
